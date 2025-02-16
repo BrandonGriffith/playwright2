@@ -33,14 +33,14 @@ with sync_playwright() as p:
     # Create a new page and start the automation sequence
     page = context.new_page()
     
-    # Site One interactions
-    page.goto(SITE_URL_ONE)
-    time.sleep(4)  # Allow page elements to fully render
-    page.locator(".components-home-assets-__sign-guide_---guide-close---2VvmzE").click()  # Dismiss initial guide overlay
-    time.sleep(1)  # Brief pause to ensure dialog is fully closed
-    # Click on the active day element to initiate the daily action
-    page.evaluate("document.querySelector('div.components-home-assets-__sign-content-test_---actived-day---34r3rb').click()")
-    time.sleep(4)  # Wait for action to complete and any animations to finish
+    # # Site One interactions
+    # page.goto(SITE_URL_ONE)
+    # time.sleep(4)  # Allow page elements to fully render
+    # page.locator(".components-home-assets-__sign-guide_---guide-close---2VvmzE").click()  # Dismiss initial guide overlay
+    # time.sleep(1)  # Brief pause to ensure dialog is fully closed
+    # # Click on the active day element to initiate the daily action
+    # page.evaluate("document.querySelector('div.components-home-assets-__sign-content-test_---actived-day---34r3rb').click()")
+    # time.sleep(4)  # Wait for action to complete and any animations to finish
 
     def click_days(SITE_URL):
         """
@@ -56,12 +56,13 @@ with sync_playwright() as p:
         # Close the modal dialog that appears on initial page load
         page.locator(".components-pc-assets-__dialog_---dialog-close---3G9gO2").click()
         time.sleep(1)  # Ensure dialog is dismissed before proceeding
-        # Click on the 9th day element to initiate the daily action
-        page.locator("div").filter(has_text=re.compile(r"Day 1")).nth(8).locator("img").click()
+        # Click on the day element to initiate the daily action
+        page.evaluate("document.querySelector('div.components-pc-assets-__prize-list_---item---F852VZ').click()")
+        page.locator("div.components-pc-assets-__prize-list_---item---F852VZ").nth(2).click()
         time.sleep(4)  # Final wait to ensure all actions are processed
 
     # Process additional sites using the click_days function
-    click_days(SITE_URL_TWO)
+    # click_days(SITE_URL_TWO)
     click_days(SITE_URL_THREE)
     
     # Save the updated session cookies for future use
