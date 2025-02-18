@@ -65,6 +65,7 @@ with sync_playwright() as p:
             try:
                 # Check if completion dialog appeared, if so exit early
                 if page.locator(".components-pc-assets-__dialog_---dialog-close---3G9gO2").count() > 0:
+                    time.sleep(4)  # Final wait to ensure all actions are processed
                     return
                 locator.nth(i).click()
                 time.sleep(1)  # Wait for action to complete before proceeding
